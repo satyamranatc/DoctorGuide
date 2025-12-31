@@ -1,24 +1,35 @@
 import React,{useState} from 'react'
 import { useSelector } from 'react-redux'
+import askAi from "../Utils/AskAi";
 
 export default function Appointment() {
 
   let [loding,setLoding] = useState(false)
-  let [appointmentData,setAppointmentData] = useState({
-    name: "",
-    age: "",
-    gender: "",
-    description: "",
-    doctor: ""
-  })
+
 
   const doctorsList = useSelector((state) => state.doctorsList)
 
 
-  async function findDoctor() 
+  let doctorData = doctorsList.doctors.map((doctor) => {
+    return {
+      id: doctor.id,
+      specialization: doctor.specialization,
+      desc: doctor.desc,
+    };
+  });
+  doctorData = JSON.stringify(doctorData);
+
+  async function handleSubmit(e) 
   {
-    let Res = await askAi(appointmentData.description,appointmentData.age)
+    e.preventDefault();
+    let data = {
+      name: e.target[0].value,
+      age: e.target[1].value,
+      gender: e.target[2].value,
+      descOfProblem: e.target[3].value,
+    }
     
+    let Res = await askAi(data); 
     
   }
 
@@ -39,7 +50,7 @@ export default function Appointment() {
       {/* Form Card */}
       <div className="bg-white border rounded-xl shadow-sm p-8">
 
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit} >
 
           {/* Name */}
           <div>
@@ -47,7 +58,6 @@ export default function Appointment() {
               Your Name
             </label>
             <input
-              onChange={(e) => setAppointmentData({...appointmentData,name:e.target.value})}
               type="text"
               placeholder="Enter your name"
               className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -60,7 +70,6 @@ export default function Appointment() {
               Your Age
             </label>
             <input
-              onChange={(e) => setAppointmentData({...appointmentData,age:e.target.value})}
               type="number"
               placeholder="Enter your age"
               className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -75,17 +84,17 @@ export default function Appointment() {
 
             <div className="flex gap-6">
               <label className="flex items-center gap-2 text-gray-600">
-                <input type="radio" name="gender" className="accent-blue-600" />
+                <input value={"Male"} type="radio" name="gender" className="accent-blue-600" />
                 Male
               </label>
 
               <label className="flex items-center gap-2 text-gray-600">
-                <input type="radio" name="gender" className="accent-blue-600" />
+                <input value={"Female"} type="radio" name="gender" className="accent-blue-600" />
                 Female
               </label>
 
               <label className="flex items-center gap-2 text-gray-600">
-                <input type="radio" name="gender" className="accent-blue-600" />
+                <input value={"Other"} type="radio" name="gender" className="accent-blue-600" />
                 Others
               </label>
             </div>
@@ -97,7 +106,6 @@ export default function Appointment() {
               Describe Your Problem
             </label>
             <textarea
-              onChange={(e) => setAppointmentData({...appointmentData,description:e.target.value})}
               rows="4"
               placeholder="Describe your disease or symptoms"
               className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -109,7 +117,7 @@ export default function Appointment() {
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Choose Doctor
             </label>
-            <select
+            {/* <select
               className="w-full border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
             >
               <option value="">Select a doctor</option>
@@ -120,11 +128,11 @@ export default function Appointment() {
                   </option>
                 ))
               }
-            </select>
+            </select> */}
           </div>
 
           <div>
-            <button onClick={findDoctor}  disabled = {loding} className='bg-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed' type='button'>
+            <button disabled = {loding} className='bg-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed' type='submit'>
               {
                 loding? "Loding...": "Find Me a Doctor"
               }
