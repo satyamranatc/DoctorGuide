@@ -53,7 +53,7 @@ export default function NavBar() {
 
           <li>
             <NavLink
-              to="/appointment"
+              to="/suggest"
               className={({ isActive }) =>
                 `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition ${
                   isActive
@@ -63,7 +63,7 @@ export default function NavBar() {
               }
             >
               <UserIcon size={20} />
-              <span>Book Appointment</span>
+              <span>Suggest Doctor</span>
             </NavLink>
           </li>
         </ul>

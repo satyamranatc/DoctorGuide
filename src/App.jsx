@@ -4,7 +4,8 @@ import Footer from './Components/Footer'
 
 import Home from './Pages/Home'
 import Doctors from './Pages/Doctors'
-import Appointment from './Pages/Appointment'
+import Suggest from './Pages/Suggest'
+import Appointment from './Pages/Appointment.jsx'
 import NotFound from './Pages/NotFound'
 
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
@@ -17,7 +18,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/doctors" element={<Doctors />} />
-          <Route path="/appointment" element={<Appointment />} />
+          <Route path="/suggest" element={<Suggest />} />
+          <Route path="/appointment/:id" element={<Appointment />} />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

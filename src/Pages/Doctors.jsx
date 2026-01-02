@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { MapPin, Star } from 'lucide-react'
 
@@ -68,9 +69,11 @@ export default function Doctors() {
                 </div>
 
                 {/* Button */}
-                <button className="w-full mt-6 bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+               <Link to = {`/appointment/${doctor.id}`}>
+                 <button className="w-full mt-6 bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition">
                   Book Appointment
                 </button>
+               </Link>
               </div>
 
             </div>

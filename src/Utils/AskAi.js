@@ -1,9 +1,12 @@
 import React from "react";
 import { GoogleGenAI } from "@google/genai";
+import { ClockFading } from "lucide-react";
 
-const ai = new GoogleGenAI({ apiKey: "YOUR_API_KEY" });
+const ai = new GoogleGenAI({
+  apiKey: "AIzaSyD_Q18mLzA253pPNJgH259uS1SMLr-Auc8",
+});
 
-export default async function askAi(data,doctorData) {
+export default async function askAi(data, doctorData) {
 
 
   const response = await ai.models.generateContent({

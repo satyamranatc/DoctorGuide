@@ -75,7 +75,6 @@ let DoctorSlicer = createSlice({
     fees: 1000
   }
 ]
-
     },
     reducers: {
         setDoctors: (state, action) => {
