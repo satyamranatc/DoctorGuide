@@ -3,7 +3,7 @@ import { GoogleGenAI } from "@google/genai";
 import { ClockFading } from "lucide-react";
 
 const ai = new GoogleGenAI({
-  apiKey: "AIzaSyD_Q18mLzA253pPNJgH259uS1SMLr-Auc8",
+  apiKey: import.meta.env.VITE_GENAI_API_KEY,
 });
 
 export default async function askAi(data, doctorData) {
